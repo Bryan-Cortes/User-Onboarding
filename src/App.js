@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Form from './components/UserForm';
 import User from './components/User'
@@ -6,6 +5,7 @@ import React, { useState, useEffect } from "react";
 import formSchema from './components/formSchema';
 import axios from 'axios';
 import * as yup from "yup";
+import styled from 'styled-components'
 
 //////////////// INITIAL STATES ///////////////
 const initialUsers = [];
@@ -27,13 +27,13 @@ const initialDisabled = true;
 function App() {
 
   ///// STATES //////
-  const [savedUsers,setSavedUsers] = useState(initialUsers);
+  const [savedUsers,setSavedUsers] = useState(initialUsers); //array
 
-  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formValues, setFormValues] = useState(initialFormValues); //object
 
-  const [formErrors, setFormErrors]= useState(initialErrors);
+  const [formErrors, setFormErrors]= useState(initialErrors); //object
 
-  const [disabled, setDisabled]= useState(initialDisabled);
+  const [disabled, setDisabled]= useState(initialDisabled); //boolean
 
  /////// AXIOS POST /////////
   const postnewUser = (newUser)=>{
@@ -54,7 +54,7 @@ function App() {
       name: formValues.name.trim(),
       email: formValues.email.trim(),
       password: formValues.password.trim(),
-      terms: formValues.terms,
+      terms: JSON.stringify(formValues.terms),
     };
     //adding the data to state
     postnewUser(newUser);
@@ -100,21 +100,26 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Advanced Form</h1>
+      
 
-      <Form
-        formValue={formValues}
-        change={inputChange}
-        disabled={disabled}
-        errors={formErrors}
-        submit={submit}
-      />
+        
+        <Title>
+          Advanced Form:
+        </Title>
 
-      <div>
-        {savedUsers.map((user)=>{
-          return <User key={user.id} details={user} />
-        })}
-      </div>
+        <Form
+          formValue={formValues}
+          change={inputChange}
+          disabled={disabled}
+          errors={formErrors}
+          submit={submit}
+        />
+
+        <div>
+          {savedUsers.map((user)=>{
+            return <User key={user.id} details={user} />
+          })}
+        </div>
       
     </div>
   );
@@ -122,3 +127,10 @@ function App() {
 
 export default App;
 
+
+const Title = styled.h1 `
+  color: ${(props) =>  props.theme.primaryColor};
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 4rem;
+  text-shadow: 1px 1px 5px #f9813a;
+`

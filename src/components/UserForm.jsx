@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 export default function Form(props) {
   const {formValue, disabled, errors, change, submit} = props
@@ -14,7 +15,7 @@ export default function Form(props) {
   }
 
   return (
-    <div>
+    <StyledFormDiv>
       <h2>Add your infomation:</h2>
       <form onSubmit={onSubmit}>
 
@@ -66,7 +67,32 @@ export default function Form(props) {
         </div>
       </form>
       
-    </div>
+    </StyledFormDiv>
   )
 }
 
+const StyledFormDiv = styled.div`
+
+  font-size: ${(props) =>  props.theme.fontSize};
+  /* border: 1.5px solid ${(props) =>  props.theme.primaryColor}; */
+  color: ${(props) =>  props.theme.thirdColor};
+  padding: 2%;
+  font-family: sans-serif;
+  font-weight: bold;
+
+  label{
+    margin: 0 2%;
+  }
+
+
+  button{
+    background-color: ${(props) =>  props.theme.thirdColor};
+    border-radius: 10px;
+    border: none;
+    padding: 1%;
+    font-weight: bold;
+    font-size: ${(props) =>  props.theme.fontSize};
+    color: ${(props) =>  props.theme.primaryColor};
+  }
+
+`
